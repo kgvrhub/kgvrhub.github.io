@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,6 +35,132 @@
             position: fixed;
             top: 0;
             width: 100%;
+            padding: 30px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference; /* Inverts color based on background for luxury feel */
+        }
+
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 4px;
+            font-size: 1.2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-left: 40px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-muted);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-banner {
+            max-width: 600px;
+            width: 80%;
+            height: auto;
+            opacity: 0.9;
+            animation: fadeIn 2s ease forwards;
+        }
+
+        /* Asymmetric Portfolio Section */
+        .portfolio {
+            padding: 140px 4%;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 80px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .grid-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #111;
+            aspect-ratio: 16 / 10;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.03);
+            filter: grayscale(0%);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 0.9; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">KGVR</div>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#about">Studio</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="KGVR_20260522_191006_0000.png" alt="KGVR Media Banner" class="hero-banner">
+    </section>
+
+    <section id="work" class="portfolio">
+        <h2 class="section-title">Selected Works</h2>
+        
+        <div class="grid-split">
+            <div class="project-card">
+                <img src="your-asset-1.jpg" class="project-img" alt="Project Cut">
+            </div>
+            <div class="project-card">
+                <img src="your-asset-2.jpg" class="project-img" alt="Project Cut">
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>    width: 100%;
             padding: 30px 4%;
             display: flex;
             justify-content: space-between;
