@@ -94,13 +94,19 @@
       padding: 2rem 3.5rem;
       transition: background 0.6s, padding 0.5s;
     }
-    nav.scrolled {
-      background: rgba(235, 234, 230, 0.92);
+        nav.scrolled {
+      background: rgba(235, 234, 230, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       padding: 1.25rem 3.5rem;
       border-bottom: 1px solid var(--line);
     }
+
+    .nav-logo img {
+      mix-blend-mode: multiply; /* Seams the logo cleanly into the background texture */
+      transition: opacity 0.4s var(--ease-out-expo);
+    }
+
 
     .nav-links {
       display: flex;
@@ -703,13 +709,35 @@
       }, { passive: true });
     })();
 
-    /* ── NAV SCROLL BEHAVIOUR ───────────────────────────── */
+        /* ── NAV SCROLL BEHAVIOUR & LOGO FADE ───────────────── */
     (function() {
       const nav = document.getElementById('nav');
+      const logoImg = document.querySelector('.nav-logo img');
+      let lastScrollY = window.scrollY;
+
       window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 80);
+        const currentScrollY = window.scrollY;
+
+        // Toggle the navbar background card
+        nav.classList.toggle('scrolled', currentScrollY > 80);
+
+        if (logoImg) {
+          if (currentScrollY < 50) {
+            // Fully visible at the absolute top
+            logoImg.style.opacity = '1';
+          } else if (currentScrollY < lastScrollY) {
+            // Scrolling UP — smoothly fade the logo out
+            logoImg.style.opacity = '0';
+          } else {
+            // Scrolling DOWN — bring the logo back
+            logoImg.style.opacity = '1';
+          }
+        }
+
+        lastScrollY = currentScrollY;
       }, { passive: true });
     })();
+
 
     /* ── MOBILE MENU ────────────────────────────────────── */
     const burger = document.getElementById('burger');
