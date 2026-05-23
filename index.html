@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>KGVR MEDIA | Pure Execution</title>
+
+  <style>
+    /* ==========================================================================
+      01. CORE SYSTEM VARIABLES
+      ========================================================================== 
+      Engineered for strict contrast and high-end typography scaling.
+    */
+    :root {
+      /* Color Palette */
+      --color-bg: #ffffff;
+      --color-surface: #fbfbfd;
+      --color-surface-hover: #f5f5f7;
+      --color-text-primary: #1d1d1f;
+      --color-text-secondary: #86868b;
+      --color-text-tertiary: #a1a1a6;
+      --color-border: rgba(0, 0, 0, 0.08);
+      --color-border-hover: rgba(0, 0, 0, 0.2);
+      
+      /* Overlay & Glass */
+      --glass-nav: rgba(255, 255, 255, 0.85);
+      --glass-modal: rgba(255, 255, 255, 0.95);
+      
+      /* Typography */
+      --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      
+      /* Animation */
+      --transition-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+      --transition-smooth: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* ==========================================================================
+      02. RESET & BASE
+      ========================================================================== 
+    */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; 
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      font-family: var(--font-stack);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Lock scrolling when modal is open */
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none; /* Prevents dragging */
+      user-select: none;
+    }
+
+    ::selection {
+      background: var(--color-text-primary);
+      color: var(--color-bg);
+    }
+
+    /* ==========================================================================
+      03. ANIMATION ENGINE (GPU ACCELERATED)
+      ========================================================================== 
+    */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
+      will-change: opacity, transform;
+    }
+    
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+      04. GLOBAL NAVIGATION
+      ========================================================================== 
+    */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      background: var(--glass-nav);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      justify-content: center;
+      padding: 1rem 2rem;
+      transition: transform 0.4s var(--transition-smooth);
+    }
+
+    nav.nav-hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+      color: var(--color-text-primary);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-search {
+      flex-grow: 1;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      font-size: 0.85rem;
+      font-family: inherit;
+      color: var(--color-text-primary);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+
+    .nav-search input:focus {
+      border-color: var(--color-text-secondary);
+      background: var(--color-bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-text-primary);
+    }
+
+    /* ==========================================================================
+      05. LAYOUT & SECTIONS
+      ========================================================================== 
+    */
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 8rem 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .section-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity var(--transition-fast);
+    }
+
+    .section-link:hover {
+      opacity: 0.6;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 2rem;
+      background: radial-gradient(circle at 50% 0%, var(--color-surface) 0%, var(--color-bg) 70%);
+    }
+
+    .hero-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: var(--color-text-primary);
+    }
+
+    /* ==========================================================================
+      06. PORTFOLIO GRID & CARDS
+      ========================================================================== 
+    */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .work-card {
+      display: flex;
+      flex-direction: column;
+      cursor: zoom-in; /* Indicates clickability for lightbox */
+      group: hover;
+    }
+    
+    .work-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .work-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--transition-smooth);
+    }
+
+    .work-card:hover .work-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .work-meta {
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .work-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+    }
+
+    .work-category {
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================================
+      07. LIGHTBOX (MODAL) SYSTEM
+      ========================================================================== 
+    */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999;
+      background: var(--glass-modal);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--transition-smooth);
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      transform: scale(0.95);
+      transition: transform 0.4s var(--ease-spring);
+    }
+
+    .lightbox.active .lightbox-content {
+      transform: scale(1);
+    }
+
+    .lightbox img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      pointer-events: auto; /* Allow interaction if needed */
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      background: var(--color-text-primary);
+      color: var(--color-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border: none;
+      z-index: 10000;
+      transition: transform var(--transition-fast);
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.1);
+    }
+
+    /* ==========================================================================
+      08. PHILOSOPHY / SPECS
+      ========================================================================== 
+    */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .spec-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .spec-card:hover {
+      background: var(--color-bg);
+      border-color: var(--color-border-hover);
+    }
+
+    .spec-icon {
+      font-size: 1.5rem;
+      color: var(--color-text-primary);
+      margin-bottom: 2rem;
+    }
+
+    .spec-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .spec-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+      09. ROUTING (FREELANCE) & FOOTER
+      ========================================================================== 
+    */
+    .routing-section {
+      background: var(--color-text-primary);
+      color: var(--color-bg);
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+
+    .routing-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 3rem;
+    }
+
+    .social-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .social-pill {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--color-bg);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 1rem 2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+
+    .social-pill:hover {
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: var(--color-bg);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 2rem auto;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .footer-text {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+      10. MEDIA QUERIES
+      ========================================================================== 
+    */
+    @media (max-width: 1024px) {
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .work-grid { grid-template-columns: 1fr; }
+      .specs-grid { grid-template-columns: 1fr; }
+      .nav-inner { flex-wrap: wrap; justify-content: space-between; }
+      .nav-links { display: none; }
+      .nav-search { order: 3; max-width: 100%; margin-top: 1rem; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .lightbox-close { top: 1rem; right: 1rem; width: 40px; height: 40px; font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close fullscreen">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Fullscreen view" />
+    </div>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">KGVR MEDIA.</a>
+      
+      <div class="nav-search">
+        <form id="search-form" onsubmit="event.preventDefault();">
+          <input type="text" placeholder="Search parameters, edits, keywords...">
+        </form>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#work">Archive</a></li>
+        <li><a href="#philosophy">Architecture</a></li>
+        <li><a href="#links">Communicate</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero reveal">
+    <div class="hero-label">KGVR Media</div>
+    <h1 class="hero-title">Strict minimalism.<br>Pure execution.</h1>
+  </header>
+
+  <main>
+    <section id="work" class="section-container">
+      <div class="section-header reveal">
+        <h2>The Edits.</h2>
+        <a href="#" class="section-link">View Full Archive &rarr;</a>
+      </div>
+
+      <div class="work-grid">
+        
+        <article class="work-card reveal gallery-item">
+          <div class="work-img-wrap">
+            <img src="Preci_20260520_155923_0000.png" alt="Voltix E1" data-full="Preci_20260520_155923_0000.png" />
+          </div>
+          <div class="work-meta">
+            <div class="work-title">Voltix E1</div>
+            <div class="work-category">Concept Automotive</div>
+          </div>
+        </article>
+
+        <article class="work-card reveal gallery-item" style="transition-delay: 0.1s;">
+          <div class="work-img-wrap">
+            <img src="REDEMPTION_20260517_001455_0000.png" alt="Redemption" data-full="REDEMPTION_20260517_001455_0000.png" />
+          </div>
+          <div class="work-meta">
+            <div class="work-title">Redemption</div>
+            <div class="work-category">Sports Editorial</div>
+          </div>
+        </article>
+
+        <article class="work-card reveal gallery-item" style="transition-delay: 0.2s;">
+          <div class="work-img-wrap">
+            <img src="INNOVATION_20260518_003206_0000.png" alt="Vision Is Back" data-full="INNOVATION_20260518_003206_0000.png" />
+          </div>
+          <div class="work-meta">
+            <div class="work-title">Vision Is Back</div>
+            <div class="work-category">Tech Presentation</div>
+          </div>
+        </article>
+
+        <article class="work-card reveal gallery-item">
+          <div class="work-img-wrap">
+            <img src="PLAID_20260424_135957_0000.png" alt="Plaid Layout" data-full="PLAID_20260424_135957_0000.png" />
+          </div>
+          <div class="work-meta">
+            <div class="work-title">Plaid Layout</div>
+            <div class="work-category">Automotive Grading</div>
+          </div>
+        </article>
+
+        <article class="work-card reveal gallery-item" style="transition-delay: 0.1s;">
+          <div class="work-img-wrap">
+            <img src="placeholder-1.jpg" alt="Project Slot 05" data-full="placeholder-1.jpg" />
+          </div>
+          <div class="work-meta">
+            <div class="work-title">Project 05</div>
+            <div class="work-category">Unreleased</div>
+          </div>
+        </article>
+
+        <article class="work-card reveal gallery-item" style="transition-delay: 0.2s;">
+          <div class="work-img-wrap">
+            <img src="placeholder-2.jpg" alt="Project Slot 06" data-full="placeholder-2.jpg" />
+          </div>
+          <div class="work-meta">
+            <div class="work-title">Project 06</div>
+            <div class="work-category">Unreleased</div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="philosophy" class="section-container">
+      <div class="section-header reveal">
+        <h2>Engineering the visual.</h2>
+      </div>
+      <div class="specs-grid">
+        <div class="spec-card reveal">
+          <div class="spec-icon">⌘</div>
+          <div class="spec-title">Precision Masking</div>
+          <div class="spec-desc">Flawless subject separation. Edges clipped with surgical accuracy to eliminate artifacting entirely.</div>
+        </div>
+        <div class="spec-card reveal" style="transition-delay: 0.1s;">
+          <div class="spec-icon">◱</div>
+          <div class="spec-title">Negative Space</div>
+          <div class="spec-desc">Intentional emptiness engineered to natively guide ocular focus without artificial framing.</div>
+        </div>
+        <div class="spec-card reveal" style="transition-delay: 0.2s;">
+          <div class="spec-icon">☼</div>
+          <div class="spec-title">Dynamic Grading</div>
+          <div class="spec-desc">High-contrast chassis mapping. Mapping matte and gloss finishes perfectly to native light sources.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="links" class="routing-section reveal">
+      <h2 class="routing-title">Initiate Protocol.</h2>
+      <div class="social-grid">
+        <a href="https://wa.me/YOUR_NUMBER" class="social-pill" target="_blank">WhatsApp</a>
+        <a href="https://instagram.com/YOUR_HANDLE" class="social-pill" target="_blank">Instagram</a>
+        <a href="https://linkedin.com/in/YOUR_PROFILE" class="social-pill" target="_blank">LinkedIn</a>
+        <a href="https://fiverr.com/YOUR_PROFILE" class="social-pill" target="_blank">Fiverr</a>
+        <a href="https://upwork.com/freelancers/YOUR_PROFILE" class="social-pill" target="_blank">Upwork</a>
+        <a href="https://freelancer.com/u/YOUR_PROFILE" class="social-pill" target="_blank">Freelancer</a>
+        <a href="mailto:hello@kgvrmedia.com" class="social-pill" style="background: var(--color-bg); color: var(--color-text-primary);">Direct Email</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <img src="kgvr-logo-circular.png" alt="KGVR Media Logo" class="footer-logo">
+    <div class="footer-text">Copyright © 2026 KGVR Media (Competrix Corp). All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      /* ─── 1. INTERSECTION OBSERVER (SCROLL ANIMATIONS) ─── */
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      /* ─── 2. SMART NAVIGATION (HIDE ON SCROLL DOWN) ─── */
+      let lastScrollY = window.scrollY;
+      const nav = document.getElementById('navbar');
+      
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+          nav.classList.add('nav-hidden');
+        } else {
+          nav.classList.remove('nav-hidden');
+        }
+        lastScrollY = currentScrollY;
+      }, { passive: true });
+
+      /* ─── 3. LIGHTBOX SYSTEM (FULLSCREEN IMAGES) ─── */
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.getElementById('lightbox-close');
+      const galleryItems = document.querySelectorAll('.gallery-item img');
+
+      // Open Lightbox
+      galleryItems.forEach(img => {
+        img.addEventListener('click', () => {
+          const highResUrl = img.getAttribute('data-full');
+          lightboxImg.src = highResUrl;
+          lightbox.classList.add('active');
+          document.body.classList.add('modal-open');
+        });
+      });
+
+      // Close Logic Function
+      const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('modal-open');
+        setTimeout(() => { lightboxImg.src = ''; }, 400); // Clear image after transition
+      };
+
+      // Close Triggers
+      closeBtn.addEventListener('click', closeLightbox);
+      
+      lightbox.addEventListener('click', (e) => {
+        // If clicking outside the actual image, close the modal
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      // Escape key to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          closeLightbox();
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
+
