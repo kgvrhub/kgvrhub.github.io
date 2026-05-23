@@ -42,6 +42,55 @@
     .nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; color: var(--color-text-secondary); text-decoration: none; text-transform: uppercase; transition: color var(--transition-fast); }
     .nav-links a:hover { color: var(--color-text-primary); }
 
+    /* ─── HAMBURGER MENU ENGINE ─── */
+.menu-toggle {
+  display: none; /* Only show on mobile */
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--color-text-primary);
+  transition: all 0.3s var(--transition-fast);
+}
+
+/* Animate to X */
+.menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Fullscreen Mobile Overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--color-bg);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--transition-smooth);
+}
+.mobile-nav-overlay.active { opacity: 1; pointer-events: all; }
+.mobile-nav-overlay a { font-size: 2rem; font-weight: 700; color: var(--color-text-primary); text-decoration: none; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .menu-toggle { display: flex; }
+}
+
+
     .section-container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem 8rem 2rem; }
     
     .hero { height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 0 2rem 4rem 2rem; background: var(--color-bg); border-bottom: 1px solid var(--color-border); }
@@ -81,6 +130,13 @@
 </head>
 <body>
 
+  <div class="mobile-nav-overlay" id="mobile-nav">
+  <a href="index.html">Home</a>
+  <a href="archive.html">Archive</a>
+  <a href="index.html#links">Contact</a>
+</div>
+
+
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" id="lightbox-close" aria-label="Close fullscreen">&times;</button>
     <div class="lightbox-content">
@@ -89,20 +145,19 @@
   </div>
 
   <nav id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">KGVR MEDIA.</a>
-      <div class="nav-search">
-        <form id="search-form" onsubmit="event.preventDefault();">
-          <input type="text" placeholder="Search archive edits...">
-        </form>
-      </div>
-      <ul class="nav-links">
-        <li><a href="archive.html" style="color: var(--color-text-primary);">Archive</a></li>
-        <li><a href="index.html#philosophy">Architecture</a></li>
-        <li><a href="index.html#links">Communicate</a></li>
-      </ul>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">KGVR MEDIA.</a>
+    
+    <div class="nav-search">...</div>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span><span></span><span></span>
     </div>
-  </nav>
+
+    <ul class="nav-links">...</ul>
+  </div>
+</nav>
+
 
   <header class="hero reveal">
     <h1 class="hero-title">The Archive.</h1>
@@ -177,6 +232,25 @@
       lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox(); });
     });
+
+    /* ─── HAMBURGER MENU LOGIC ─── */
+const menuToggle = document.getElementById('menu-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  mobileNav.classList.toggle('active');
+  document.body.classList.toggle('modal-open');
+});
+
+// Close menu when a link is clicked
+document.querySelectorAll('.mobile-nav-overlay a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuToggle.classList.remove('active');
+    mobileNav.classList.remove('active');
+    document.body.classList.remove('modal-open');
+  });
+});
   </script>
 </body>
 </html>
