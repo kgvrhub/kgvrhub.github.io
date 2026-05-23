@@ -45,7 +45,15 @@
 
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 900; background: var(--glass-nav); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--color-border); display: flex; justify-content: center; padding: 1rem 2rem; transition: transform 0.4s var(--transition-smooth); }
     nav.nav-hidden { transform: translateY(-100%); }
-    .nav-inner { width: 100%; max-width: 1400px; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+    .nav-inner {
+  display: flex !important;       /* Forces items into a row */
+  flex-direction: row !important; /* Keeps them in a row */
+  justify-content: space-between; /* Logo left, Button right */
+  align-items: center;            /* Vertical center */
+  width: 100%;
+  padding: 0 20px;
+}
+
     .nav-logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.03em; color: var(--color-text-primary); text-decoration: none; flex-shrink: 0; }
     .nav-search { flex-grow: 1; max-width: 400px; position: relative; }
     .nav-search input { width: 100%; padding: 0.6rem 1.2rem; border-radius: 30px; border: 1px solid var(--color-border); background: var(--color-surface); font-size: 0.85rem; font-family: inherit; color: var(--color-text-primary); outline: none; transition: all var(--transition-fast); }
