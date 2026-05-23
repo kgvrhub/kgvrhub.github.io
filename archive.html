@@ -31,6 +31,17 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth); will-change: opacity, transform; }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+    .logo-wrap {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.logo-wrap:hover {
+  opacity: 0.7;
+}
+
+
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 900; background: var(--glass-nav); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--color-border); display: flex; justify-content: center; padding: 1rem 2rem; transition: transform 0.4s var(--transition-smooth); }
     nav.nav-hidden { transform: translateY(-100%); }
     .nav-inner { width: 100%; max-width: 1400px; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
@@ -146,8 +157,15 @@
 
   <nav id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">KGVR MEDIA.</a>
-    
+  <a href="index.html" class="logo-wrap">
+    <img src="kgvr-logo-circular.png" alt="KGVR Media" style="height: 40px; width: auto; display: block;">
+  </a>
+  
+  <div class="menu-toggle" id="toggle">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
     <div class="nav-search">...</div>
 
     <div class="menu-toggle" id="menu-toggle">
