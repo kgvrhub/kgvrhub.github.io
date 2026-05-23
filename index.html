@@ -32,14 +32,10 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth); will-change: opacity, transform; }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-    .logo-wrap {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-.logo-wrap:hover {
-  opacity: 0.7;
+.logo-wrap {
+  display: flex;         /* Allows it to sit side-by-side */
+  align-items: center;   /* Keeps the logo vertically centered */
+  width: auto;           /* Crucial: prevents it from taking up full width */
 }
 
 
