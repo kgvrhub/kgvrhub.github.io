@@ -7,10 +7,10 @@
   <style>
     /* ─── DESIGN CORE & TOKENS ─── */
     :root {
-      --color-bg: #ffffff;
+      --color-bg: #080808;
       --color-surface: #fbfbfd;
-      --color-text-primary: #1d1d1f;
-      --color-text-secondary: #86868b;
+      --color-text-primary: #fbfbfd;
+      --color-text-secondary: #9b9b9b;
       --color-border: rgba(0, 0, 0, 0.08);
       --glass-nav: rgba(255, 255, 255, 0.9);
       --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -35,6 +35,12 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
+    background: linear-gradient(
+  180deg,
+  #151515 0%,
+  #080808 40%,
+  #000000 100%
+);
 
     body.modal-open {
       overflow: hidden;
