@@ -11,8 +11,8 @@
       --color-surface: #fbfbfd;
       --color-text-primary: #fbfbfd;
       --color-text-secondary: #9b9b9b;
-      --color-border: rgba(0, 0, 0, 0.08);
-      --glass-nav: rgba(255, 255, 255, 0.9);
+      --color-border: rgba(255, 255, 255, 0.08);
+      --glass-nav: rgba(0, 0, 0, .75);
       --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -53,7 +53,7 @@
       width: 100%;
       z-index: 1000;
       background: var(--glass-nav);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--color-border);
       padding: 15px 20px;
