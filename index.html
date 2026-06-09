@@ -155,7 +155,6 @@
       width: 100%;
       height: 100%;
       background: transparent;
-      backdrop-filter: (20px);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -183,6 +182,11 @@
 
     .mobile-menu a:active {
       transform: scale(0.95);
+    }
+    .mobile-menu {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari */
+  background: rgba(0, 0, 0, 0.4); /* semi-transparent so blur shows */
     }
 
     /* ─── PORTFOLIO GRID & LAYOUT ─── */
