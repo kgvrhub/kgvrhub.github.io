@@ -130,7 +130,7 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-      z-index: 10001; /* Stays above the overlay */
+      z-index: 1600; /* Stays above the overlay */
       flex-shrink: 0;
     }
 
@@ -140,6 +140,10 @@
       height: 2px;
       background: var(--color-text-primary);
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .hamburger {
+  position: relative;
+  z-index: 1600;
     }
 
     /* Smooth Transformation Transitions to X */
