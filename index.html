@@ -45,7 +45,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 1000;
+      z-index: 2000;
       background: var(--glass-nav);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -130,7 +130,7 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-      z-index: 1600; /* Stays above the overlay */
+      z-index: 2000; /* Stays above the overlay */
       flex-shrink: 0;
     }
 
@@ -141,10 +141,7 @@
       background: var(--color-text-primary);
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .hamburger {
-  position: relative;
-  z-index: 1600;
-    }
+    
 
     /* Smooth Transformation Transitions to X */
     .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -344,7 +341,7 @@ letter-spacing:-0.05em;
   <nav id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="logo-wrap">
-        <img src="kgvr-logo-circular.png" alt="KGVR MEDIA" style="height: 32px; width: auto; display: block;">
+        <img src="kgvr-logo-circular.png" alt="KGVR MEDIA" style="height: 42px; width: auto; display: block;">
       </a>
       
       <ul class="nav-links">
