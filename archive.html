@@ -18,9 +18,11 @@
     }
 
     *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+    }
     }
 
     html {
@@ -35,14 +37,7 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    background: linear-gradient(
-  180deg,
-  #151515 0%,
-  #080808 40%,
-  #000000 100%
-);
-
-    body.modal-open {
+     body.modal-open {
       overflow: hidden;
     }
 
@@ -51,7 +46,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 1000;
+      z-index: 2000;
       background: var(--glass-nav);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(20px);
@@ -142,7 +137,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--color-bg);
+      background: transparent;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -164,6 +159,12 @@
       font-weight: 700;
       text-decoration: none;
       color: var(--color-text-primary);
+    }
+
+    .mobile-menu {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.4);
     }
 
     /* ─── MULTI-COLUMN ARCHIVE SYSTEM ─── */
@@ -399,7 +400,7 @@
       </p>
       
       <div class="contact-matrix">
-        <a href="https://wa.me/08140353794" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://wa.me/2348140353794" target="_blank" rel="noopener noreferrer">WhatsApp</a>
         <a href="https://instagram.com/kgvrmedia" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://www.facebook.com/share/1BfMWgdErf/" target="_blank" rel="noopener noreferrer">Facebook</a>
