@@ -274,8 +274,9 @@
     branding: {
       label: 'Branding',
       items: [
-        { src: 'assets/blank.png', alt: 'Blank — brand manifesto poster, "Every designer starts here," KGVR Media', client: 'Blank', concept: 'Brand Manifesto Poster', w: 1080, h: 1920, accent: '#ffffff' },
-        { src: 'assets/obsidian-studio.png', alt: 'Obsidian Studio — logo and identity design for a luxury architecture practice', client: 'Obsidian Studio', concept: 'Logo & Identity System', w: 2000, h: 2000, accent: '#ffffff' }
+        { src: 'assets/obsidian-studio.png', alt: 'Obsidian Studio — logo and identity design for a luxury architecture practice', client: 'Obsidian Studio', concept: 'Logo & Identity System', w: 2000, h: 2000, accent: '#ffffff' },
+        { src: 'assets/maes-beauty.png', alt: "Mae's Beauty Collections — logo and brand identity design", client: "Mae's Beauty Collections", concept: 'Logo & Brand Identity', w: 2000, h: 2000, accent: '#d15e61' },
+        { src: 'assets/north-brew.png', alt: 'North Brew — monochrome N/B logo and identity design for a coffee roastery', client: 'North Brew', concept: 'Logo & Identity System', w: 2000, h: 2000, accent: '#b9862c' }
       ]
     },
     automotive: {
@@ -286,11 +287,16 @@
         { src: 'assets/bmw-m5-g90.jpg', alt: 'BMW M5 G90 — Heavy Luxury feature, front-facing studio shot', client: 'BMW M5 G90', concept: 'Heavy Luxury Feature', w: 1080, h: 1920, accent: '#c7a15a' }
       ]
     },
-    beauty: {
-      label: 'Beauty',
+    fashion: {
+      label: 'Fashion',
       items: [
-        { src: 'assets/maes-beauty.png', alt: "Mae's Beauty Collections — logo and brand identity design", client: "Mae's Beauty Collections", concept: 'Logo & Brand Identity', w: 2000, h: 2000, accent: '#d15e61' },
         { src: 'assets/summer-olive-state.png', alt: 'Summer — Olive State Collection campaign poster, quiet luxury fashion editorial', client: 'Olive State Collection', concept: 'Summer Campaign Poster', w: 1080, h: 1920, accent: '#b8b55c' }
+      ]
+    },
+    editorials: {
+      label: 'Editorials',
+      items: [
+        { src: 'assets/blank.png', alt: 'Blank — brand manifesto poster, "Every designer starts here," KGVR Media', client: 'Blank', concept: 'Brand Manifesto Poster', w: 1080, h: 1920, accent: '#ffffff' }
       ]
     }
   };
