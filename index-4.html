@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>KGVR Media | Pure Execution</title>
+  <meta name="description" content="KGVR Media is an independent visual studio specializing in branding, automotive, and beauty design work. Deliberate, refined, and engineered for attention.">
+  <meta name="author" content="KGVR Media">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#060605">
+  <link rel="canonical" href="https://kgvrmedia.github.io/">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="KGVR Media">
+  <meta property="og:title" content="KGVR Media | Pure Execution">
+  <meta property="og:description" content="An independent visual studio specializing in branding, automotive, and beauty design work. Deliberate, refined, engineered for attention.">
+  <meta property="og:url" content="https://kgvrmedia.github.io/">
+  <meta property="og:image" content="https://kgvrmedia.github.io/assets/timeless.jpg">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KGVR Media | Pure Execution">
+  <meta name="twitter:description" content="An independent visual studio specializing in branding, automotive, and beauty design work.">
+  <meta name="twitter:image" content="https://kgvrmedia.github.io/assets/timeless.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://kgvrmedia.github.io/#organization",
+        "name": "KGVR Media",
+        "url": "https://kgvrmedia.github.io/",
+        "logo": "https://kgvrmedia.github.io/logo.png",
+        "sameAs": [
+          "https://instagram.com/kgvrmedia",
+          "https://www.facebook.com/share/1BfMWgdErf/",
+          "https://linkedin.com/in/yourusername",
+          "https://x.com/yourusername"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://kgvrmedia.github.io/#website",
+        "url": "https://kgvrmedia.github.io/",
+        "name": "KGVR Media",
+        "publisher": { "@id": "https://kgvrmedia.github.io/#organization" }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <div class="page-transition" id="pageTransition" aria-hidden="true">
+    <div class="preloader-stack" aria-hidden="true">
+      <span class="pl-line pl-ghost">KGVR</span>
+      <span class="pl-line pl-solid">KGVR</span>
+      <span class="pl-line pl-ghost">KGVR</span>
+    </div>
+    <span class="visually-hidden">Loading KGVR Media</span>
+  </div>
+
+  <div class="nav-pill" id="navPill">
+    <a href="index.html" class="pill-logo hoverable" data-transition aria-label="KGVR Media — Home">
+      <img src="kgvr-logo-circular.png" alt="KGVR Media" width="30" height="30">
+    </a>
+    <span class="pill-divider" aria-hidden="true"></span>
+    <button class="pill-toggle hoverable" id="toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="pill-panel" id="menu" aria-hidden="true">
+    <a href="index.html" data-transition class="hoverable">Home</a>
+    <a href="archive.html" data-transition class="hoverable">Archive</a>
+    <a href="#about" class="hoverable">About</a>
+    <a href="#links" class="hoverable">Communicate</a>
+  </nav>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <img id="lb-img" src="" alt="Enlarged view">
+    </div>
+  </div>
+
+  <header class="hero">
+    <video autoplay muted loop playsinline poster="hero-poster.jpg" class="hero-video">
+      <source src="hero-video.webm" type="video/webm">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Strict Minimalism</p>
+      <h1 class="hero-title">Pure<br>Execution.</h1>
+    </div>
+    <span class="hero-scroll-cue" aria-hidden="true"></span>
+  </header>
+
+  <main>
+    <section id="work" class="section-container">
+      <span class="eyebrow">Selected Work</span>
+
+      <div class="teaser-wrap" id="teaserWrap">
+        <div class="teaser-grid" aria-hidden="true">
+          <div class="teaser-cell"><img src="assets/blank.png" alt="" loading="lazy"></div>
+          <div class="teaser-cell"><img src="assets/timeless.jpg" alt="" loading="lazy"></div>
+          <div class="teaser-cell"><img src="assets/maes-beauty.png" alt="" loading="lazy"></div>
+          <div class="teaser-cell"><img src="assets/obsidian-studio.png" alt="" loading="lazy"></div>
+        </div>
+        <div class="teaser-scrim" aria-hidden="true"></div>
+        <a href="archive.html" data-transition class="enter-archive-pill hoverable" id="enterArchivePill">
+          Enter Archive <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="about-section" id="about">
+        <span class="eyebrow">About</span>
+        <h2>Built deliberate. Engineered for attention.</h2>
+        <p>
+          KGVR Media is an independent studio working across branding, automotive,
+          and beauty — cinematic editing, digital design, brand presentation.
+          No filler. Just execution.
+        </p>
+      </div>
+    </section>
+
+    <footer id="links" class="section-container">
+      <div class="footer-inner">
+        <h2>Let's build.</h2>
+        <p>Available for freelance execution, creative direction, and brand presentation worldwide.</p>
+
+        <div class="contact-list">
+          <a href="https://wa.me/2348140353794" target="_blank" rel="noopener noreferrer" class="hoverable">WhatsApp</a>
+          <a href="https://instagram.com/kgvrmedia" target="_blank" rel="noopener noreferrer" class="hoverable">Instagram</a>
+          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="hoverable">LinkedIn</a>
+          <a href="https://www.facebook.com/share/1BfMWgdErf/" target="_blank" rel="noopener noreferrer" class="hoverable">Facebook</a>
+          <a href="https://x.com/yourusername" target="_blank" rel="noopener noreferrer" class="hoverable">X / Twitter</a>
+          <a href="https://freelancer.com/u/yourusername" target="_blank" rel="noopener noreferrer" class="hoverable">Freelancer</a>
+          <a href="https://fiverr.com/yourusername" target="_blank" rel="noopener noreferrer" class="hoverable">Fiverr</a>
+          <a href="https://upwork.com/freelancers/~yourid" target="_blank" rel="noopener noreferrer" class="hoverable">Upwork</a>
+        </div>
+
+        <p class="footer-copyright">&copy; 2026 KGVR Media. Pure Execution.</p>
+      </div>
+    </footer>
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
