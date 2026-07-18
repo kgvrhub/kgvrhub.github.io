@@ -236,37 +236,80 @@ nav.menu-panel a:hover{ background: var(--cream-dim); }
 }
 
 main.content{
-  padding: 40px 24px 20px;
-  max-width: 720px;
+  padding: 48px 24px 24px;
+  max-width: 640px;
   margin: 0 auto;
-}
-
-.eyebrow{
-  display:block;
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight:600;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color: var(--green);
-  margin-bottom: 14px;
 }
 
 article h1{
   font-family: var(--font-display);
   font-weight:500;
-  font-size: clamp(1.7rem, 5vw, 2.4rem);
-  line-height: 1.15;
+  font-size: clamp(2rem, 6.5vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   color: var(--ink);
-  margin-bottom: 22px;
+  margin-bottom: 30px;
+}
+
+article p.lede{
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+article p.lede::first-letter{
+  font-family: var(--font-display);
+  font-size: 3.4em;
+  line-height: 0.82;
+  font-weight: 500;
+  float: left;
+  padding: 0.04em 0.08em 0 0;
+  color: var(--green-deep);
+}
+
+blockquote.pull-quote{
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 4.2vw, 1.6rem);
+  line-height: 1.45;
+  color: var(--green-deep);
+  text-align: center;
+  max-width: 460px;
+  margin: 40px auto;
+  padding: 0 12px;
+}
+blockquote.pull-quote::before{
+  content: "\201C";
+  display: block;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 3rem;
+  line-height: 0.5;
+  color: var(--green);
+  opacity: .5;
+  margin-bottom: 16px;
+}
+
+.section-divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin: 40px 0;
+}
+.section-divider span{
+  width:4px; height:4px; border-radius:50%;
+  background: var(--border);
 }
 
 article h2{
   font-family: var(--font-display);
   font-weight:500;
-  font-size: clamp(1.2rem, 3.4vw, 1.5rem);
+  font-size: clamp(1.25rem, 3.6vw, 1.55rem);
+  letter-spacing: -0.005em;
   color: var(--green-deep);
-  margin: 30px 0 12px;
+  margin: 0 0 14px;
 }
 
 article p{
@@ -278,15 +321,15 @@ article p{
 
 article strong{ color: var(--ink); }
 
-.byline{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin: 24px 0 6px;
-  padding-top: 20px;
+p.closer{
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ink);
+  text-align: center;
+  margin: 34px 0 0;
+  padding-top: 24px;
   border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--ink-soft);
 }
 
 footer.credit{
@@ -358,26 +401,31 @@ footer.credit a{
 
       <main class="content">
         <article>
-          <span class="eyebrow">Launch &middot; About</span>
           <h1>We're KGVR Health. Here's why we exist.</h1>
 
-          <p>Most health content is built for extremes. Either you're training for a marathon, or you're being told to overhaul your entire life by Monday. There's very little written for the person in between — someone who just wants to feel a little better, a little more often, without turning their life into a project.</p>
+          <p class="lede">Most health content is built for extremes. Either you're training for a marathon, or you're being told to overhaul your entire life by Monday. There's very little written for the person in between — someone who just wants to feel a little better, a little more often, without turning their life into a project.</p>
 
           <p>That's the gap KGVR Health is here for.</p>
 
-          <p><strong>We make healthy living simple, consistent, and within reach.</strong> Not simple as in dumbed-down — simple as in <em>doable on a Tuesday</em>. Consistent as in built to survive a bad week, not just a good one. Within reach as in no equipment, no supplement stack, no 5 a.m. non-negotiables required.</p>
+          <blockquote class="pull-quote">We make healthy living simple, consistent, and within reach.</blockquote>
+
+          <p>Not simple as in dumbed-down — simple as in <em>doable on a Tuesday</em>. Consistent as in built to survive a bad week, not just a good one. Within reach as in no equipment, no supplement stack, no 5 a.m. non-negotiables required.</p>
+
+          <div class="section-divider"><span></span><span></span><span></span></div>
 
           <h2>Your body keeps count</h2>
           <p>That's the other half of what we believe. You don't feel the first skipped walk, the first late night, the first missed meal. You feel the fortieth. Health isn't damaged in dramatic moments — it's built or worn down in invisible, boring, daily ones. Long before symptoms show up, the count is already running.</p>
 
           <p>So instead of chasing intensity, we pay attention to inputs: sleep, movement, food, stress, recovery — the stuff that's unglamorous but does all the actual work. Our job is to help you keep pace with the count your body is already keeping, not to hand you another regimen to fall off of.</p>
 
+          <div class="section-divider"><span></span><span></span><span></span></div>
+
           <h2>What this actually is, for now</h2>
           <p>KGVR Health is a content vertical, not a clinic or a coaching program. Right now, that means writing — real, practical, no-nonsense pieces on the things people quietly struggle with: energy, sleep, food, movement, stress. No miracle framing, no fear-based hooks. Just useful.</p>
 
           <p>It sits under KGVR, alongside KGVR Media, because the same principle runs through both: good execution over noise. Here, that just means turning "healthy living" into something that survives contact with a real week.</p>
 
-          <p>More is coming. This is where it starts.</p>
+          <p class="closer">More is coming. This is where it starts.</p>
         </article>
       </main>
     </div>
