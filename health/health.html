@@ -135,8 +135,7 @@ button{ font: inherit; color: inherit; background: none; border: none; }
 .frame{
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 0 14px 28px;
-  position: relative;
+  padding: 68px 14px 28px;
 }
 
 header.pill-header{
@@ -147,8 +146,15 @@ header.pill-header{
   align-items:center;
   justify-content:space-between;
   gap: 12px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 14px;
+  right: 14px;
   z-index: 50;
+}
+
+@media (min-width: 640px){
+  header.pill-header{ left: 20px; right: 20px; }
 }
 
 .wordmark{
@@ -182,7 +188,7 @@ header.pill-header{
 .menu-toggle.active span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
 nav.menu-panel{
-  position: absolute;
+  position: fixed;
   top: 58px;
   right: 20px;
   background: var(--cream);
@@ -304,7 +310,7 @@ footer.credit a{
 }
 
 @media (min-width: 640px){
-  .frame{ padding: 0 20px 40px; }
+  .frame{ padding: 68px 20px 40px; }
   main.content{ padding: 56px 40px 30px; }
 }
   </style>
