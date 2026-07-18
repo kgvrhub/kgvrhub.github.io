@@ -601,6 +601,33 @@ footer.section-container {
 }
 
   </style>
+  <style>
+.sound-toggle{
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.9);
+  transition: opacity .25s var(--ease-smooth), transform .25s var(--ease-smooth);
+}
+.sound-toggle.visible{
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+  </style>
 </head>
 <body>
 
@@ -744,6 +771,20 @@ footer.section-container {
     </div>
   </footer>
 
+  <audio id="bgAudio" src="assets/kgvr-jazz.mp3" loop preload="none"></audio>
+  <button id="soundToggle" class="sound-toggle hoverable" aria-label="Toggle background music" aria-pressed="false">
+    <svg id="soundIconOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <svg id="soundIconOff" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </button>
+
   <script>
 (function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -777,6 +818,50 @@ footer.section-container {
       goTo(href);
     });
   });
+
+  /* ══════════════ Background music ══════════════ */
+  const audio = document.getElementById('bgAudio');
+  const soundToggle = document.getElementById('soundToggle');
+  const iconOn = document.getElementById('soundIconOn');
+  const iconOff = document.getElementById('soundIconOff');
+  if (audio && soundToggle) {
+    audio.volume = 0.14;
+
+    function showToggle() { soundToggle.classList.add('visible'); }
+    function setIcon(playing) {
+      iconOn.style.display = playing ? 'block' : 'none';
+      iconOff.style.display = playing ? 'none' : 'block';
+      soundToggle.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    }
+    function rememberState(on) {
+      try { sessionStorage.setItem('kgvr_music_on', on ? '1' : '0'); } catch (e) {}
+    }
+    function startMusic() {
+      audio.play().then(() => {
+        setIcon(true);
+        showToggle();
+        rememberState(true);
+      }).catch(() => {});
+    }
+
+    try {
+      if (sessionStorage.getItem('kgvr_music_on') === '1') startMusic();
+    } catch (e) {}
+
+    document.querySelectorAll('a[data-transition]').forEach(link => {
+      link.addEventListener('click', () => { if (audio.paused) startMusic(); });
+    });
+
+    soundToggle.addEventListener('click', () => {
+      if (audio.paused) {
+        startMusic();
+      } else {
+        audio.pause();
+        setIcon(false);
+        rememberState(false);
+      }
+    });
+  }
 
   /* ══════════════ Custom cursor ══════════════ */
   const cursor = document.getElementById('cursorDot');
