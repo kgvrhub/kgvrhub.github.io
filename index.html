@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KGVR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0a0a;
+    --cream:#f4ecd8;
+    --green:#157a5c;
+    --dot:#d9d9d9;
+    --dim:#8a8a8a;
+    --wipe-ease: cubic-bezier(.76,0,.24,1);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{
+    height:100%;
+    background:var(--ink);
+    overflow-x:hidden;
+  }
+
+  body{
+    font-family:'IBM Plex Serif', serif;
+    color:var(--cream);
+  }
+
+  /* ================= INTRO ================= */
+
+  #intro{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: transform .95s var(--wipe-ease);
+    will-change: transform;
+  }
+
+  #intro.leaving{
+    transform: translateX(115%) skewX(-14deg);
+  }
+
+  #intro.hidden{
+    display:none;
+  }
+
+  .dot-cluster{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .dot-row{
+    display:flex;
+    gap:10px;
+  }
+
+  .dot-row:nth-child(2){ margin-left:20px; }
+  .dot-row:nth-child(3){ margin-left:40px; }
+  .dot-row:nth-child(4){ margin-left:60px; }
+
+  .dot{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:var(--dot);
+    opacity:0;
+    transform:scale(.4);
+    animation: dot-in .5s var(--wipe-ease) forwards;
+  }
+
+  @keyframes dot-in{
+    to{ opacity:1; transform:scale(1); }
+  }
+
+  @keyframes cluster-pulse{
+    0%{ transform:scale(1); }
+    50%{ transform:scale(1.06); }
+    100%{ transform:scale(1); }
+  }
+
+  .dot-cluster.pulse{
+    animation: cluster-pulse .5s var(--wipe-ease);
+  }
+
+  @media (min-width:600px){
+    .dot{ width:20px; height:20px; }
+    .dot-row{ gap:14px; }
+    .dot-cluster{ gap:14px; }
+  }
+
+  /* ================= PAGE ================= */
+
+  #page{
+    position:relative;
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  #page::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url('assets/wallpaper.png') center/cover no-repeat;
+    filter: blur(18px) brightness(.55) saturate(1.05);
+    transform: scale(1.1);
+    z-index:-2;
+  }
+
+  #page::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background: radial-gradient(120% 90% at 50% 0%, rgba(10,10,10,.25), rgba(10,10,10,.75) 70%);
+    z-index:-1;
+  }
+
+  header.brand{
+    padding: 34px 24px 12px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .mark{
+    font-family:'Times New Roman', Times, serif;
+    font-weight:400;
+    font-size: 27px;
+    letter-spacing: .28em;
+    padding-left:.28em;
+    color:var(--cream);
+  }
+
+  main.tiles{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding: 20px 20px 24px;
+    max-width: 640px;
+    margin: 0 auto;
+    width:100%;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .tile{
+    position:relative;
+    aspect-ratio: 4 / 5;
+    border-radius:3px;
+    overflow:hidden;
+    display:block;
+    text-decoration:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .tile img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition: transform .5s var(--wipe-ease);
+  }
+
+  .tile.live:hover img,
+  .tile.live:focus-visible img{
+    transform: scale(1.035);
+  }
+
+  .tile.live::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    padding:2px;
+    opacity:0;
+    transition: opacity .3s ease;
+    pointer-events:none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .tile.live:hover::after,
+  .tile.live:focus-visible::after{
+    opacity:1;
+  }
+
+  .tile.health::after{
+    background: var(--cream);
+  }
+
+  .tile.media::after{
+    background: linear-gradient(to right, #ffffff 50%, #000000 50%);
+  }
+
+  .tile.live:focus-visible{
+    outline: none;
+  }
+
+  .tile.soon{
+    position:relative;
+    aspect-ratio: 4 / 5;
+    border-radius:3px;
+    overflow:hidden;
+    background: rgba(255,255,255,.03);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+  }
+
+  .tile.soon .name{
+    font-family:'IBM Plex Serif', serif;
+    font-size:19px;
+    font-weight:500;
+    letter-spacing:.03em;
+    color: rgba(244,236,216,.4);
+  }
+
+  .badge{
+    position:absolute;
+    top:12px;
+    right:12px;
+    font-family:'IBM Plex Serif', serif;
+    font-size:9px;
+    letter-spacing:.16em;
+    padding:4px 8px;
+    color: rgba(244,236,216,.4);
+  }
+
+  footer.credit{
+    text-align:center;
+    padding: 18px 24px 30px;
+    font-family:'IBM Plex Serif', serif;
+    font-size:11px;
+    letter-spacing:.1em;
+    color: rgba(244,236,216,.35);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #intro{ display:none; }
+    .dot{ animation:none; opacity:1; transform:none; }
+    .tile img, .tile.live::after{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="intro" aria-hidden="true">
+    <div class="dot-cluster" id="cluster">
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.00s"></div>
+        <div class="dot" style="animation-delay:.05s"></div>
+        <div class="dot" style="animation-delay:.10s"></div>
+        <div class="dot" style="animation-delay:.15s"></div>
+      </div>
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.10s"></div>
+        <div class="dot" style="animation-delay:.15s"></div>
+        <div class="dot" style="animation-delay:.20s"></div>
+      </div>
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.20s"></div>
+        <div class="dot" style="animation-delay:.25s"></div>
+      </div>
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.30s"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page">
+    <header class="brand">
+      <div class="mark">KGVR</div>
+    </header>
+
+    <main class="tiles">
+      <div class="grid">
+        <a class="tile live health" href="/health/" aria-label="KGVR Health">
+          <img src="assets/health-tile.jpg" alt="KGVR Health">
+        </a>
+        <a class="tile live media" href="/media/" aria-label="KGVR Media">
+          <img src="assets/media-tile.jpg" alt="KGVR Media">
+        </a>
+        <div class="tile soon">
+          <span class="badge">Soon</span>
+          <span class="name">Sports</span>
+        </div>
+        <div class="tile soon">
+          <span class="badge">Soon</span>
+          <span class="name">Automotive</span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="credit">&copy; KGVR</footer>
+  </div>
+
+<script>
+  (function(){
+    var intro = document.getElementById('intro');
+    var cluster = document.getElementById('cluster');
+    var seen = sessionStorage.getItem('kgvr_intro_seen');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (seen || reduced) {
+      intro.classList.add('hidden');
+      return;
+    }
+
+    setTimeout(function(){
+      cluster.classList.add('pulse');
+    }, 750);
+
+    setTimeout(function(){
+      intro.classList.add('leaving');
+    }, 1150);
+
+    intro.addEventListener('transitionend', function(){
+      intro.classList.add('hidden');
+      sessionStorage.setItem('kgvr_intro_seen', '1');
+    });
+  })();
+</script>
+
+</body>
+</html>
