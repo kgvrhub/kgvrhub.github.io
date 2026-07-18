@@ -19,15 +19,32 @@
 
   *{ box-sizing:border-box; margin:0; padding:0; }
 
-  html,body{
+  html{
     height:100%;
     background:var(--ink);
-    overflow-x:hidden;
   }
 
   body{
+    min-height:100%;
+    overflow-x:hidden;
     font-family:'IBM Plex Serif', serif;
     color:var(--cream);
+    background:
+      radial-gradient(140% 100% at 50% 0%, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 80%),
+      linear-gradient(-45deg, #060606, #0e2a20, #157a5c, #0a1a15, #060606);
+    background-size: 100% 100%, 400% 400%;
+    background-position: 0 0, 0% 50%;
+    animation: drift 18s ease-in-out infinite;
+  }
+
+  @keyframes drift{
+    0%{ background-position: 0 0, 0% 50%; }
+    50%{ background-position: 0 0, 100% 50%; }
+    100%{ background-position: 0 0, 0% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    body{ animation:none; background-position: 0 0, 30% 50%; }
   }
 
   /* ================= INTRO ================= */
@@ -40,12 +57,14 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    transition: transform .95s var(--wipe-ease);
+    animation: intro-wipe 1.9s var(--wipe-ease) forwards;
+    animation-delay: .15s;
     will-change: transform;
   }
 
-  #intro.leaving{
-    transform: translateX(115%) skewX(-14deg);
+  @keyframes intro-wipe{
+    0%, 62%{ transform: translateX(0) skewX(0deg); }
+    100%{ transform: translateX(115%) skewX(-14deg); }
   }
 
   #intro.hidden{
@@ -56,6 +75,7 @@
     display:flex;
     flex-direction:column;
     gap:10px;
+    animation: cluster-pulse .5s var(--wipe-ease) .95s;
   }
 
   .dot-row{
@@ -87,10 +107,6 @@
     100%{ transform:scale(1); }
   }
 
-  .dot-cluster.pulse{
-    animation: cluster-pulse .5s var(--wipe-ease);
-  }
-
   @media (min-width:600px){
     .dot{ width:20px; height:20px; }
     .dot-row{ gap:14px; }
@@ -107,24 +123,6 @@
     flex-direction:column;
   }
 
-  #page::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:url('assets/wallpaper.png') center/cover no-repeat;
-    filter: blur(18px) brightness(.55) saturate(1.05);
-    transform: scale(1.1);
-    z-index:-2;
-  }
-
-  #page::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background: radial-gradient(120% 90% at 50% 0%, rgba(10,10,10,.25), rgba(10,10,10,.75) 70%);
-    z-index:-1;
-  }
-
   header.brand{
     padding: 34px 24px 12px;
     display:flex;
@@ -135,7 +133,7 @@
     font-family:'Times New Roman', Times, serif;
     font-weight:400;
     font-size: 27px;
-    letter-spacing: .20em;
+    letter-spacing: .28em;
     padding-left:.28em;
     color:var(--cream);
   }
@@ -166,6 +164,9 @@
     text-decoration:none;
     -webkit-tap-highlight-color: transparent;
   }
+
+  .tile.health{ background: var(--green); }
+  .tile.media{ background: #0a0a0a; }
 
   .tile img{
     width:100%;
@@ -311,30 +312,25 @@
   </div>
 
 <script>
-  (function(){
+  // Enhancement only: the intro plays via pure CSS animation regardless of JS.
+  // This just (a) skips it on repeat visits this session and (b) cleans up
+  // the element from the DOM once it's done. Wrapped so any blocked API
+  // (e.g. sessionStorage in a sandboxed preview) can't break the page.
+  try {
     var intro = document.getElementById('intro');
-    var cluster = document.getElementById('cluster');
-    var seen = sessionStorage.getItem('kgvr_intro_seen');
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var seen = false;
+    try { seen = sessionStorage.getItem('kgvr_intro_seen') === '1'; } catch (e) {}
 
     if (seen || reduced) {
       intro.classList.add('hidden');
-      return;
+    } else {
+      intro.addEventListener('animationend', function(){
+        intro.classList.add('hidden');
+        try { sessionStorage.setItem('kgvr_intro_seen', '1'); } catch (e) {}
+      });
     }
-
-    setTimeout(function(){
-      cluster.classList.add('pulse');
-    }, 750);
-
-    setTimeout(function(){
-      intro.classList.add('leaving');
-    }, 1150);
-
-    intro.addEventListener('transitionend', function(){
-      intro.classList.add('hidden');
-      sessionStorage.setItem('kgvr_intro_seen', '1');
-    });
-  })();
+  } catch (e) {}
 </script>
 
 </body>
