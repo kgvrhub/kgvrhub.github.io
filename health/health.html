@@ -76,28 +76,57 @@ button{ font: inherit; color: inherit; background: none; border: none; }
 }
 
 /* ═══════════════════════════════════════════
-   PRELOADER — soft fade, no skew/wipe (calmer than Media)
+   PRELOADER — same dot-cluster wipe as the parent KGVR index,
+   recolored: green bg, cream dots
    ═══════════════════════════════════════════ */
 .page-transition{
   position:fixed; inset:0; z-index:1000;
   background: var(--green);
   display:flex; align-items:center; justify-content:center;
-  transition: opacity .6s var(--ease-smooth);
+  animation: intro-wipe 1.9s var(--ease-smooth) forwards;
+  animation-delay: .15s;
+  will-change: transform;
 }
-.page-transition.hidden{ opacity:0; pointer-events:none; }
+.page-transition.hidden{ display:none; }
 
-.preloader-mark{
-  font-family: var(--font-display);
-  color: var(--cream);
-  font-size: clamp(1.6rem, 6vw, 2.4rem);
-  letter-spacing: .32em;
-  padding-left: .32em;
-  opacity: 0;
-  animation: mark-in 1.1s var(--ease-smooth) forwards;
+@keyframes intro-wipe{
+  0%, 62%{ transform: translateX(0) skewX(0deg); }
+  100%{ transform: translateX(115%) skewX(-14deg); }
 }
-@keyframes mark-in{
-  0%{ opacity:0; transform: translateY(8px); }
-  100%{ opacity:1; transform: translateY(0); }
+
+.dot-cluster{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  animation: cluster-pulse .5s var(--ease-smooth) .95s;
+}
+.dot-row{ display:flex; gap:10px; }
+.dot-row:nth-child(2){ margin-left:20px; }
+.dot-row:nth-child(3){ margin-left:40px; }
+.dot-row:nth-child(4){ margin-left:60px; }
+
+.dot{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background: var(--cream);
+  opacity:0;
+  transform:scale(.4);
+  animation: dot-in .5s var(--ease-smooth) forwards;
+}
+@keyframes dot-in{
+  to{ opacity:1; transform:scale(1); }
+}
+@keyframes cluster-pulse{
+  0%{ transform:scale(1); }
+  50%{ transform:scale(1.06); }
+  100%{ transform:scale(1); }
+}
+
+@media (min-width:600px){
+  .dot{ width:20px; height:20px; }
+  .dot-row{ gap:14px; }
+  .dot-cluster{ gap:14px; }
 }
 
 /* ═══════════════════════════════════════════
@@ -106,19 +135,19 @@ button{ font: inherit; color: inherit; background: none; border: none; }
 .frame{
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 14px 14px 28px;
+  padding: 0 14px 28px;
+  position: relative;
 }
 
 header.pill-header{
   background: var(--green);
-  border-radius: 34px;
-  padding: 22px 24px;
+  border-radius: 0 0 22px 22px;
+  padding: 10px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap: 12px;
-  position: sticky;
-  top: 14px;
+  position: relative;
   z-index: 50;
 }
 
@@ -127,8 +156,8 @@ header.pill-header{
   align-items:center;
 }
 .wordmark img{
-  height: 48px;
-  width: 48px;
+  height: 32px;
+  width: 32px;
   display:block;
   border-radius: 50%;
 }
@@ -136,13 +165,13 @@ header.pill-header{
 .menu-toggle{
   display:flex;
   flex-direction:column;
-  gap:5px;
-  padding:8px;
+  gap:4px;
+  padding:6px;
   cursor:pointer;
 }
 .menu-toggle span{
   display:block;
-  width:26px;
+  width:22px;
   height:2px;
   background: var(--cream);
   border-radius:2px;
@@ -153,9 +182,9 @@ header.pill-header{
 .menu-toggle.active span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
 nav.menu-panel{
-  position: fixed;
-  top: 92px;
-  right: 28px;
+  position: absolute;
+  top: 58px;
+  right: 20px;
   background: var(--cream);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -275,7 +304,7 @@ footer.credit a{
 }
 
 @media (min-width: 640px){
-  .frame{ padding: 20px 20px 40px; }
+  .frame{ padding: 0 20px 40px; }
   main.content{ padding: 56px 40px 30px; }
 }
   </style>
@@ -283,14 +312,33 @@ footer.credit a{
 <body>
 
   <div class="page-transition" id="pageTransition" aria-hidden="true">
-    <span class="preloader-mark">KGVR HEALTH</span>
+    <div class="dot-cluster">
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.00s"></div>
+        <div class="dot" style="animation-delay:.05s"></div>
+        <div class="dot" style="animation-delay:.10s"></div>
+        <div class="dot" style="animation-delay:.15s"></div>
+      </div>
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.10s"></div>
+        <div class="dot" style="animation-delay:.15s"></div>
+        <div class="dot" style="animation-delay:.20s"></div>
+      </div>
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.20s"></div>
+        <div class="dot" style="animation-delay:.25s"></div>
+      </div>
+      <div class="dot-row">
+        <div class="dot" style="animation-delay:.30s"></div>
+      </div>
+    </div>
     <span class="visually-hidden">Loading KGVR Health</span>
   </div>
 
   <div class="frame">
     <header class="pill-header">
       <a href="health.html" class="wordmark" aria-label="KGVR Health — Home">
-        <img src="assets/badge.png" alt="KGVR Health" width="48" height="48">
+        <img src="assets/badge.png" alt="KGVR Health" width="32" height="32">
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="menuPanel">
         <span></span><span></span><span></span>
@@ -339,12 +387,23 @@ footer.credit a{
 
 <script>
 (function(){
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var overlay = document.getElementById('pageTransition');
-  if (overlay){
-    if (reduced){ overlay.classList.add('hidden'); }
-    else{ setTimeout(function(){ overlay.classList.add('hidden'); }, 900); }
-  }
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try {
+    var seen = false;
+    try { seen = sessionStorage.getItem('kgvr_health_intro_seen') === '1'; } catch (e) {}
+
+    if (overlay) {
+      if (seen || reduced) {
+        overlay.classList.add('hidden');
+      } else {
+        overlay.addEventListener('animationend', function(){
+          overlay.classList.add('hidden');
+          try { sessionStorage.setItem('kgvr_health_intro_seen', '1'); } catch (e) {}
+        });
+      }
+    }
+  } catch (e) {}
 
   var toggle = document.getElementById('menuToggle');
   var panel = document.getElementById('menuPanel');
