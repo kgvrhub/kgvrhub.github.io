@@ -436,14 +436,6 @@ button { font: inherit; color: inherit; background: none; border: none; }
   color: var(--color-text-secondary); line-height: 1.75; font-size: 1rem; font-weight: 300;
   max-width: 46ch;
 }
-.featured-view {
-  display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 2rem;
-  font-family: var(--font-display); font-weight: 400; letter-spacing: 0.05em;
-  font-size: 1rem; text-transform: uppercase; color: var(--color-text-primary);
-  cursor: pointer; border-bottom: 1px solid var(--color-border-strong); padding-bottom: 0.3rem;
-  transition: border-color 0.3s var(--ease-fast), color 0.3s var(--ease-fast);
-}
-.featured-view:hover { color: var(--accent-maison-bright); border-color: var(--accent-maison-bright); }
 
 @media (max-width: 760px) {
   .featured-inner { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
@@ -752,15 +744,13 @@ footer.section-container {
             <span class="eyebrow">Featured</span>
           </div>
           <h2>Maison Faustina</h2>
-          <span class="featured-role">Monogram, Identity &amp; Campaign System</span>
+          <span class="featured-role">Leather Goods &amp; Fragrance House</span>
           <p>
-            An interlocking M monogram built into a full identity — wordmark, packaging,
-            and campaign visuals across leather goods and fragrance. Heritage typography,
-            warm neutral tones, one mark carried through every touchpoint.
+            Maison Faustina sits at the intersection of heritage and modern sophistication —
+            a house built on quiet, considered luxury rather than noise. Leather goods and
+            fragrance carry one mark and one standard, made for people who don't need to
+            say much to be understood.
           </p>
-          <span class="featured-view hoverable" tabindex="0" role="button">
-            View Full Size <span aria-hidden="true">&rarr;</span>
-          </span>
         </div>
       </div>
     </section>
@@ -884,7 +874,7 @@ footer.section-container {
     setTimeout(() => { if (lbImg) lbImg.src = ''; }, 250);
   }
   function bindLightbox(root) {
-    root.querySelectorAll('.gallery-item img, .overlay-item img').forEach(img => {
+    root.querySelectorAll('.gallery-item img, .overlay-item img, img.gallery-item, img.overlay-item').forEach(img => {
       if (img.dataset.lbBound) return;
       img.dataset.lbBound = '1';
       img.addEventListener('click', e => {
@@ -894,20 +884,6 @@ footer.section-container {
     });
   }
   bindLightbox(document);
-
-  const featuredViewLink = document.querySelector('.featured-view');
-  const featuredImg = document.getElementById('featuredImg');
-  if (featuredViewLink && featuredImg) {
-    featuredViewLink.addEventListener('click', () => {
-      openLightbox(featuredImg.getAttribute('data-full') || featuredImg.src, featuredImg.alt);
-    });
-    featuredViewLink.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(featuredImg.getAttribute('data-full') || featuredImg.src, featuredImg.alt);
-      }
-    });
-  }
 
   if (lightbox) {
     lightbox.addEventListener('click', e => {
