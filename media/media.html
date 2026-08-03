@@ -100,6 +100,11 @@
   --accent-editorials-bright: #e8e3d8;
   --accent-editorials-dim: #302d27;
 
+  /* Maison Faustina — pulled from its own gold/espresso identity */
+  --accent-maison: #c9a876;
+  --accent-maison-bright: #e8c896;
+  --accent-maison-dim: #3d321f;
+
   --font-display: 'Bebas Neue', 'Oswald', 'Arial Narrow', sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
 
@@ -388,6 +393,66 @@ button { font: inherit; color: inherit; background: none; border: none; }
 .enter-archive-pill .arrow { font-size: 0.95em; }
 
 /* ═══════════════════════════════════════════
+   FEATURED — standalone spotlight, sits above the archive teaser
+   ═══════════════════════════════════════════ */
+.featured-section { padding-top: 0; }
+.featured-inner {
+  display: grid; grid-template-columns: 0.85fr 1fr; gap: 4rem; align-items: center;
+  border: 1px solid var(--color-border); border-radius: 10px;
+  padding: 3.5rem; background: var(--color-surface);
+  transition: border-color 0.4s var(--ease-fast);
+}
+.featured-inner:hover { border-color: var(--accent-maison-dim); }
+.featured-media { display: flex; flex-direction: column; gap: 0.9rem; }
+.featured-media > img {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  border-radius: 6px; border: 1px solid var(--color-border);
+  transition: transform 0.6s var(--ease-smooth);
+}
+.featured-inner:hover .featured-media > img { transform: scale(1.02); }
+.featured-thumbs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.featured-thumbs img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;
+  border-radius: 6px; border: 1px solid var(--color-border);
+  transition: transform 0.4s var(--ease-fast), border-color 0.4s var(--ease-fast);
+}
+.featured-thumbs img:hover { transform: translateY(-3px); border-color: var(--accent-maison-dim); }
+.featured-eyebrow-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
+.featured-eyebrow-row .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent-maison-bright);
+  box-shadow: 0 0 10px var(--accent-maison-bright);
+}
+.featured-text .eyebrow { color: var(--accent-maison-bright); margin-bottom: 0; }
+.featured-text h2 {
+  font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(2.1rem, 3.6vw, 3.2rem); letter-spacing: 0.01em;
+  color: var(--color-text-primary); margin-bottom: 0.9rem;
+}
+.featured-text .featured-role {
+  font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent-maison); margin-bottom: 1.4rem; display: block;
+}
+.featured-text p {
+  color: var(--color-text-secondary); line-height: 1.75; font-size: 1rem; font-weight: 300;
+  max-width: 46ch;
+}
+.featured-view {
+  display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 2rem;
+  font-family: var(--font-display); font-weight: 400; letter-spacing: 0.05em;
+  font-size: 1rem; text-transform: uppercase; color: var(--color-text-primary);
+  cursor: pointer; border-bottom: 1px solid var(--color-border-strong); padding-bottom: 0.3rem;
+  transition: border-color 0.3s var(--ease-fast), color 0.3s var(--ease-fast);
+}
+.featured-view:hover { color: var(--accent-maison-bright); border-color: var(--accent-maison-bright); }
+
+@media (max-width: 760px) {
+  .featured-inner { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+  .featured-media { max-width: 340px; margin: 0 auto; }
+  .featured-text { text-align: center; }
+  .featured-text p { margin: 0 auto; }
+}
+
+/* ═══════════════════════════════════════════
    ABOUT
    ═══════════════════════════════════════════ */
 .about-section {
@@ -660,6 +725,46 @@ footer.section-container {
   </header>
 
   <main>
+    <section id="featured" class="section-container featured-section">
+      <div class="featured-inner">
+        <div class="featured-media">
+          <img id="featuredImg" src="assets/maison-faustina-monogram.png"
+               alt="Maison Faustina — interlocking M monogram and wordmark"
+               class="gallery-item hoverable"
+               data-full="assets/maison-faustina-monogram.png"
+               loading="lazy">
+          <div class="featured-thumbs">
+            <img src="assets/maison-faustina-pleine-fleur.png"
+                 alt="Maison Faustina — Pleine Fleur campaign, Le Cabas bag and La Pochette"
+                 class="gallery-item hoverable"
+                 data-full="assets/maison-faustina-pleine-fleur.png"
+                 loading="lazy">
+            <img src="assets/maison-faustina-velura-noir.png"
+                 alt="Maison Faustina — Velura Noir fragrance campaign"
+                 class="gallery-item hoverable"
+                 data-full="assets/maison-faustina-velura-noir.png"
+                 loading="lazy">
+          </div>
+        </div>
+        <div class="featured-text">
+          <div class="featured-eyebrow-row">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="eyebrow">Featured</span>
+          </div>
+          <h2>Maison Faustina</h2>
+          <span class="featured-role">Monogram, Identity &amp; Campaign System</span>
+          <p>
+            An interlocking M monogram built into a full identity — wordmark, packaging,
+            and campaign visuals across leather goods and fragrance. Heritage typography,
+            warm neutral tones, one mark carried through every touchpoint.
+          </p>
+          <span class="featured-view hoverable" tabindex="0" role="button">
+            View Full Size <span aria-hidden="true">&rarr;</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
     <section id="work" class="section-container">
       <span class="eyebrow">Selected Work</span>
 
@@ -789,6 +894,21 @@ footer.section-container {
     });
   }
   bindLightbox(document);
+
+  const featuredViewLink = document.querySelector('.featured-view');
+  const featuredImg = document.getElementById('featuredImg');
+  if (featuredViewLink && featuredImg) {
+    featuredViewLink.addEventListener('click', () => {
+      openLightbox(featuredImg.getAttribute('data-full') || featuredImg.src, featuredImg.alt);
+    });
+    featuredViewLink.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(featuredImg.getAttribute('data-full') || featuredImg.src, featuredImg.alt);
+      }
+    });
+  }
+
   if (lightbox) {
     lightbox.addEventListener('click', e => {
       if (e.target === lbImg) return;
